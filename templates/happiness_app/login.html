@@ -1,17 +1,21 @@
 {% extends 'happiness_app/base.html' %}
-{% block body_block %}
+{% block body_block_auth %}
+  <h1 class="text-center h3 mt-5">You are already logged in. Please, go back to the home page.</h1>
+{% endblock %}
+{% block body_block_not_auth %}
+<div class="text-center mt-3">
+  <div class="jumbotron w-50 d-inline-block">
+    <h1 class="h2 mb-5">Login</h1>
+    <form class="form-signin" action="{% url 'user_login' %}" method="post">
+      {% csrf_token %}
+      <label for="username" class="sr-only">Username</label>
+      <input type="text" class="form-control" name="username" placeholder="Enter Username">
 
-<div class="jumbotron">
-  <h1>Login</h1>
-  <form action="{% url 'user_login' %}" method="post">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" name="username" placeholder="Enter Username">
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" class="form-control mb-3" name="password" placeholder="Password">
 
-    <label for="password">Password:</label>
-    <input type="password" name="password">
-
-    <input type="submit" name="" value="Login">
-  </form>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    </form>
+  </div>
 </div>
 {% endblock %}
