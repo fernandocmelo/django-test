@@ -2,9 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 
+HAPPINESS_LEVEL = [
+    (1, 'Unhappy'),
+    (2, 'Not Happy'),
+    (3, 'Neutral'),
+    (4, 'Happy'),
+    (5, 'Very Happy'),
+    ]
+
 # Create your models here.
 class Team(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     team_name = models.CharField(max_length=30,unique=True)
 
     def __str__(self):
@@ -18,7 +26,7 @@ class UserProfile(models.Model):
         return self.user.username
 
 class HappinessLevel(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
-    level = models.IntegerField(default=3)
+    level = models.IntegerField(choices = HAPPINESS_LEVEL)
     date = models.DateField(default=datetime.today().date())

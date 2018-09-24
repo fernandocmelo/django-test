@@ -1,3 +1,17 @@
-{% extends 'happiness_app/base.html' %}
-{% block body_block %}
+{% extends "happiness_app/base.html" %}
+{% block body_block_auth %}
+
+<div class="jumbotron">
+  <h1 class="display-4">Welcome, {{ user.username }}!</h1>
+  {% if user_answer_today %}
+    <p class="lead mt-5 mb-2">Thanks for sharing your happiness level!</p>
+  {% else %}
+    <p class="lead mt-5 mb-2">How are you feeling about the team today?</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input class="btn btn-primary" type="submit" value="Send">
+    </form>
+  {% endif %}
+</div>
 {% endblock %}

@@ -130,5 +130,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Login and Logout URLs
-LOGIN_REDIRECT_URL = "index"
+LOGIN_REDIRECT_URL = "register_happiness"
 LOGOUT_REDIRECT_URL = "index"
+
+AUTH_PROFILE_MODULE = 'happiness_app.UserProfile'
