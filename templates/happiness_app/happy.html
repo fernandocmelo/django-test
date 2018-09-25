@@ -1,12 +1,13 @@
 {% extends "happiness_app/base.html" %}
+{% load crispy_forms_tags %}
 {% block body_block_auth %}
 <div class="jumbotron">
-  <h1 class="display-4">Welcome, {{ user.username }}!</h1>
-  <p class="lead mt-5 mb-2">How are you feeling about the team today?</p>
+  <h1 class="display-4">Welcome, <span class="text-capitalize">{{ user.username }}</span>!</h1>
+  <p class="lead mt-5 mb-2">How happy are you feeling today?</p>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn-primary" type="submit" value="Send">
+    <p class="mt-4 mb-4">{{ form|crispy }}</p>
+    <input class="btn btn-primary mt-3" type="submit" value="Submit">
   </form>
 </div>
 {% endblock %}

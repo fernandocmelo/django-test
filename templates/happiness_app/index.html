@@ -8,10 +8,14 @@
 
 {% block body_block_auth %}
 <div class="jumbotron">
-  <h1 class="display-4">Welcome, {{ user.username }}!</h1>
+  <h1 class="display-4">Welcome, <span class="text-capitalize">{{ user.username }}</span>!</h1>
   {% if user_answer_today and user_in_profile %}
   <p class="lead mt-5 mb-5">Thanks for sharing your happiness level today!</p>
-  <h1 class="h4 mb-4 text-center">Check your team status:</h1>
+  {% if team %}
+  <h1 class="h4 mb-4 text-center">Check today's happiness level of the <span class="text-capitalize">{{ team.team_name }}</span>:</h1>
+  {% else %}
+  <h1 class="h4 mb-4 text-center">Check today's happiness level of the Company:</h1>
+  {% endif %}
   <div class="container">
     <div class="row">
       <div class="col-sm text-center">
