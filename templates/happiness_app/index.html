@@ -1,18 +1,58 @@
 {% extends "happiness_app/base.html" %}
 {% block body_block_not_auth %}
-
 <div class="jumbotron">
   <h1 class="display-4">Welcome!</h1>
-  <p> <a href="{% url 'user_login' %}">Login</a> to register your happiness level and check how your team is feeling today!</p>
+  <p class="lead mt-5 mb-5"><a href="{% url 'user_login' %}">Login</a> to register your happiness level and check how your team is feeling today!</p>
 </div>
-
 {% endblock %}
 
 {% block body_block_auth %}
-
 <div class="jumbotron">
   <h1 class="display-4">Welcome, {{ user.username }}!</h1>
-  <p> <a href="{% url 'register_happiness' %}">Register</a> your happiness level and check how your team is feeling today!</p>
+  {% if user_answer_today and user_in_profile %}
+  <p class="lead mt-5 mb-5">Thanks for sharing your happiness level today!</p>
+  <h1 class="h4 mb-4 text-center">Check your team status:</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm text-center">
+        <p class="lead mb-3"><span class="font-weight-bold">Unhappy:</span> {{ answer_level_1 }} people</p>
+        <p class="lead mb-3"><span class="font-weight-bold">Not Happy:</span> {{ answer_level_2 }} people</p>
+        <p class="lead mb-3"><span class="font-weight-bold">Neutral:</span> {{ answer_level_3 }} people</p>
+        <p class="lead mb-3"><span class="font-weight-bold">Happy:</span> {{ answer_level_4 }} people</p>
+        <p class="lead mb-3"><span class="font-weight-bold">Very Happy:</span> {{ answer_level_5 }} people</p>
+      </div>
+      <div class="col-sm text-center mt-4">
+        <p class="lead">Your team average:</p>
+        {% for avg in average %}
+        <p class="h2">{{ avg.level_avg|floatformat:"2" }}<span class="h6 align-text-bottom">/5</span></p>
+        <p class="h3">
+        {% if avg.level_avg < 1.5 %}<span class="text-danger">Unhappy</span>
+        {% else %}
+        {% if avg.level_avg >= 1.5 and avg.level_avg < 2.5 %}
+        <span class="text-danger">Not Happy</span>
+        {% else %}
+        {% if avg.level_avg >= 2.5 and avg.level_avg < 3.5 %}
+        <span class="text-warning">Neutral</span>
+        {% else %}
+        {% if avg.level_avg >= 3.5 and avg.level_avg < 4.5 %}
+        <span class="text-success">Happy</span>
+        {% else %}
+        <span class="text-success">Very Happy</span>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        </p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% else %}
+{% if user_in_profile %}
+<p class="lead mt-5 mb-5"><a href="{% url 'register_happiness' %}">Register</a> your happiness level and check how your team is feeling today!</p>
+{% else %}
+<p class="lead mt-5 mb-5">This user is not allowed to register the happiness level.</p>
+{% endif %}
+{% endif %}
 </div>
-
 {% endblock %}

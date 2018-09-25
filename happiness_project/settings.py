@@ -115,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Toronto'
 
 USE_I18N = True
 
@@ -130,7 +130,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Login and Logout URLs
-LOGIN_REDIRECT_URL = "register_happiness"
+LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "index"
 
 AUTH_PROFILE_MODULE = 'happiness_app.UserProfile'
