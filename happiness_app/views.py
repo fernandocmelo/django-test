@@ -133,7 +133,7 @@ class ErrorView(TemplateView):
         if kwargs['error'] == 'reg_error':
             context['error'] = "This user is not registered to submit the happiness level."
         elif kwargs['error'] == 'ans_error':
-            context['error'] = "This user already answered the pool today."
+            context['error'] = "This user already answered the poll today."
         else:
             context['error'] = "An unknown error has occurred."
 
